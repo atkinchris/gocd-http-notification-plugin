@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  gocd:
+    image: gocd/gocd-server:v17.8.0
+    ports:
+      - "8153:8153"
+    volumes:
+      - ./go/data:/godata
+      - ./go/home:/home/go
