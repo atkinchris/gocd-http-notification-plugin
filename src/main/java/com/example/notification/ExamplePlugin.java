@@ -21,7 +21,7 @@ public class ExamplePlugin implements GoPlugin {
     try {
       HttpClient httpClient = HttpClientBuilder.create().build();
       StringEntity requestEntity = new StringEntity(message, "application/json");
-      HttpPost postMethod = new HttpPost("http://localhost:3000");
+      HttpPost postMethod = new HttpPost("http://node:3000");
 
       postMethod.setEntity(requestEntity);
       httpClient.execute(postMethod);
