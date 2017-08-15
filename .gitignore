@@ -1,8 +1,13 @@
 # Intellij files
 .idea/
+.settings/
+.project
+.classpath
+.vscode/
 
 # gradle's output dir
 build/
+bin/
 
 # the gradle temp dir
 .gradle
