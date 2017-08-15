@@ -25,7 +25,7 @@ public class ExamplePlugin implements GoPlugin {
           return new DefaultGoPluginApiResponse(200, "{\"notifications\":[\"stage-status\"]}");
       case "stage-status":
           System.out.println(request.requestBody());
-          return new DefaultGoPluginApiResponse(200);
+          return new DefaultGoPluginApiResponse(200, "{\"status\": \"success\"}");
       default:
           throw new UnhandledRequestTypeException(request.requestName());
     }
