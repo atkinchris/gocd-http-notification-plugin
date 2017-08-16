@@ -14,10 +14,6 @@ services:
       - node
 
   node:
-    image: node:alpine
-    command: ["node", "index.js"]
+    build: ./server
     ports:
       - "3000:3000"
-    working_dir: /app
-    volumes:
-      - ./server:/app
