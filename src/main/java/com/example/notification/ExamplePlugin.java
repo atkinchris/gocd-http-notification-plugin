@@ -8,6 +8,7 @@ import com.thoughtworks.go.plugin.api.response.*;
 import com.thoughtworks.go.plugin.api.logging.Logger;
 import java.util.*;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -19,13 +20,15 @@ public class ExamplePlugin implements GoPlugin {
   private void postMessage(String message) {
     try {
       HttpClient httpClient = HttpClientBuilder.create().build();
-      StringEntity requestEntity = new StringEntity(message, "application/json");
+      StringEntity requestEntity = new StringEntity(message, "UTF-8");
       HttpPost postMethod = new HttpPost("http://node:3000");
 
       postMethod.setEntity(requestEntity);
-      httpClient.execute(postMethod);
+      HttpResponse response = httpClient.execute(postMethod);
+
+      LOGGER.info(response.toString());
     } catch (Exception ex) {
-      //handle exception here
+      LOGGER.error(ex.toString());
     }
   }
 

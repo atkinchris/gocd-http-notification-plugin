@@ -5,6 +5,8 @@ services:
     image: gocd/gocd-server:v17.8.0
     ports:
       - "8153:8153"
+    environment:
+      - GO_SERVER_SYSTEM_PROPERTIES="-Dgo.plugin.upload.enabled=true -DpluginLocationMonitor.sleepTimeInSecs=3"
     volumes:
       - ./go/data:/godata
       - ./go/home:/home/go
