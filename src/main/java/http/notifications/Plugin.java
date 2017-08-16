@@ -1,13 +1,15 @@
 package http.notifications;
 
-import com.thoughtworks.go.plugin.api.*;
-import com.thoughtworks.go.plugin.api.annotation.*;
-import com.thoughtworks.go.plugin.api.exceptions.*;
-import com.thoughtworks.go.plugin.api.request.*;
-import com.thoughtworks.go.plugin.api.response.*;
+import com.thoughtworks.go.plugin.api.GoApplicationAccessor;
+import com.thoughtworks.go.plugin.api.GoPlugin;
+import com.thoughtworks.go.plugin.api.GoPluginIdentifier;
+import com.thoughtworks.go.plugin.api.annotation.Extension;
+import com.thoughtworks.go.plugin.api.exceptions.UnhandledRequestTypeException;
+import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
+import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 import http.notifications.executors.*;
 
-import java.util.*;
+import java.util.Collections;
 
 @Extension
 public class Plugin implements GoPlugin {

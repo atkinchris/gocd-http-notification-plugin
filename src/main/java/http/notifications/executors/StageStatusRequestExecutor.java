@@ -1,17 +1,20 @@
 package http.notifications.executors;
 
-import com.thoughtworks.go.plugin.api.request.*;
-import com.thoughtworks.go.plugin.api.response.*;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.thoughtworks.go.plugin.api.logging.Logger;
-import java.util.*;
-import org.apache.http.impl.client.HttpClientBuilder;
+import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
+import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
+import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.FieldNamingPolicy;
+import org.apache.http.impl.client.HttpClientBuilder;
+
+import java.util.Collections;
+import java.util.HashMap;
 
 public class StageStatusRequestExecutor implements RequestExecutor {
     private static final Logger LOGGER = Logger.getLoggerFor(StageStatusRequestExecutor.class);
@@ -25,31 +28,31 @@ public class StageStatusRequestExecutor implements RequestExecutor {
 
     @Override
     public GoPluginApiResponse execute() {
-      HashMap<String, Object> responseJson = new HashMap<>();
+        HashMap<String, Object> responseJson = new HashMap<>();
 
-      try {
-          postMessage();
-          responseJson.put("status", "success");
-      } catch (Exception e) {
-          responseJson.put("status", "failure");
-          responseJson.put("messages", Collections.singletonList(e.getMessage()));
-      }
+        try {
+            postMessage();
+            responseJson.put("status", "success");
+        } catch (Exception e) {
+            responseJson.put("status", "failure");
+            responseJson.put("messages", Collections.singletonList(e.getMessage()));
+        }
 
-      return new DefaultGoPluginApiResponse(200, GSON.toJson(responseJson));
+        return new DefaultGoPluginApiResponse(200, GSON.toJson(responseJson));
     }
 
     private void postMessage() {
-      try {
-        HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost request = new HttpPost("http://node:3000");
-        StringEntity entity = new StringEntity(this.request.requestBody(), "UTF-8");
-        request.addHeader("content-type", "application/json");
-        request.setEntity(entity);
+        try {
+            HttpClient httpClient = HttpClientBuilder.create().build();
+            HttpPost request = new HttpPost("http://node:3000");
+            StringEntity entity = new StringEntity(this.request.requestBody(), "UTF-8");
+            request.addHeader("content-type", "application/json");
+            request.setEntity(entity);
 
-        HttpResponse response = httpClient.execute(request);
-        LOGGER.info(response.toString());
-      } catch (Exception ex) {
-        LOGGER.error(ex.toString());
-      }
+            HttpResponse response = httpClient.execute(request);
+            LOGGER.info(response.toString());
+        } catch (Exception ex) {
+            LOGGER.error(ex.toString());
+        }
     }
 }

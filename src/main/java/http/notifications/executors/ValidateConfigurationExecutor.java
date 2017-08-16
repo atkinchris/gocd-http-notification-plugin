@@ -6,14 +6,14 @@ import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 
 public class ValidateConfigurationExecutor implements RequestExecutor {
-  private static final Gson GSON = new Gson();
+    private static final Gson GSON = new Gson();
 
-  @Override
-  public GoPluginApiResponse execute() {
-      JsonArray response = new JsonArray();
+    @Override
+    public GoPluginApiResponse execute() {
+        JsonArray response = new JsonArray();
 
-      DefaultGoPluginApiResponse defaultGoPluginApiResponse = new DefaultGoPluginApiResponse(200);
-      defaultGoPluginApiResponse.setResponseBody(GSON.toJson(response));
-      return defaultGoPluginApiResponse;
-  }
+        DefaultGoPluginApiResponse defaultGoPluginApiResponse = new DefaultGoPluginApiResponse(200);
+        defaultGoPluginApiResponse.setResponseBody(GSON.toJson(response));
+        return defaultGoPluginApiResponse;
+    }
 }
