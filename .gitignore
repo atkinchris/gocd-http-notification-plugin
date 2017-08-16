@@ -8,6 +8,7 @@
 # gradle's output dir
 build/
 bin/
+out/
 
 # the gradle temp dir
 .gradle
