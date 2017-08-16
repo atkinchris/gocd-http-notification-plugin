@@ -1,4 +1,4 @@
-package com.example.notification.executors;
+package http.notifications.executors;
 
 import com.thoughtworks.go.plugin.api.request.*;
 import com.thoughtworks.go.plugin.api.response.*;
@@ -24,7 +24,7 @@ public class StageStatusRequestExecutor implements RequestExecutor {
     }
 
     @Override
-    public GoPluginApiResponse execute() throws Exception {
+    public GoPluginApiResponse execute() {
       HashMap<String, Object> responseJson = new HashMap<>();
 
       try {
@@ -32,13 +32,13 @@ public class StageStatusRequestExecutor implements RequestExecutor {
           responseJson.put("status", "success");
       } catch (Exception e) {
           responseJson.put("status", "failure");
-          responseJson.put("messages", Arrays.asList(e.getMessage()));
+          responseJson.put("messages", Collections.singletonList(e.getMessage()));
       }
 
       return new DefaultGoPluginApiResponse(200, GSON.toJson(responseJson));
     }
 
-    protected void postMessage() throws Exception {
+    private void postMessage() {
       try {
         HttpClient httpClient = HttpClientBuilder.create().build();
         HttpPost request = new HttpPost("http://node:3000");

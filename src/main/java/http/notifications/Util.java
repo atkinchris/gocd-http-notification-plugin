@@ -1,4 +1,4 @@
-package com.example.notification;
+package http.notifications;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;

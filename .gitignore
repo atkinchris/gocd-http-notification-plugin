@@ -18,3 +18,5 @@ out/
 
 # GoCD volume mounts
 /go
+
+.DS_Store

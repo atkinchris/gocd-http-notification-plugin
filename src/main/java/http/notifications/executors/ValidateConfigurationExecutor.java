@@ -1,4 +1,4 @@
-package com.example.notification.executors;
+package http.notifications.executors;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -9,7 +9,7 @@ public class ValidateConfigurationExecutor implements RequestExecutor {
   private static final Gson GSON = new Gson();
 
   @Override
-  public GoPluginApiResponse execute() throws Exception {
+  public GoPluginApiResponse execute() {
       JsonArray response = new JsonArray();
 
       DefaultGoPluginApiResponse defaultGoPluginApiResponse = new DefaultGoPluginApiResponse(200);
