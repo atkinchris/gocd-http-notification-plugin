@@ -20,12 +20,12 @@ public class ExamplePlugin implements GoPlugin {
   private void postMessage(String message) {
     try {
       HttpClient httpClient = HttpClientBuilder.create().build();
-      StringEntity requestEntity = new StringEntity(message, "UTF-8");
-      HttpPost postMethod = new HttpPost("http://node:3000");
+      HttpPost request = new HttpPost("http://node:3000");
+      StringEntity entity = new StringEntity(message, "UTF-8");
+      request.addHeader("content-type", "application/json");
+      request.setEntity(entity);
 
-      postMethod.setEntity(requestEntity);
-      HttpResponse response = httpClient.execute(postMethod);
-
+      HttpResponse response = httpClient.execute(request);
       LOGGER.info(response.toString());
     } catch (Exception ex) {
       LOGGER.error(ex.toString());
