@@ -8,10 +8,12 @@ services:
     volumes:
       - ./go/data:/godata
       - ./go/home:/home/go
+    links:
+      - node
 
   node:
     image: node:alpine
-    command: node index.js
+    command: ["node", "index.js"]
     ports:
       - "3000:3000"
     working_dir: /app

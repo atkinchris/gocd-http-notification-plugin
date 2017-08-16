@@ -5,17 +5,16 @@ import com.thoughtworks.go.plugin.api.annotation.*;
 import com.thoughtworks.go.plugin.api.exceptions.*;
 import com.thoughtworks.go.plugin.api.request.*;
 import com.thoughtworks.go.plugin.api.response.*;
+import com.thoughtworks.go.plugin.api.logging.Logger;
 import java.util.*;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 
 @Extension
 public class ExamplePlugin implements GoPlugin {
-  private GoApplicationAccessor accessor;
+  private static Logger LOGGER = Logger.getLoggerFor(ExamplePlugin.class);
 
   private void postMessage(String message) {
     try {
@@ -31,7 +30,7 @@ public class ExamplePlugin implements GoPlugin {
   }
 
   public void initializeGoApplicationAccessor(GoApplicationAccessor accessor) {
-    this.accessor = accessor;
+    // Unused
   }
 
   public GoPluginIdentifier pluginIdentifier() {
@@ -43,6 +42,7 @@ public class ExamplePlugin implements GoPlugin {
       case "notifications-interested-in":
           return new DefaultGoPluginApiResponse(200, "{\"notifications\":[\"stage-status\"]}");
       case "stage-status":
+          LOGGER.info(request.requestBody());
           postMessage(request.requestBody());
           return new DefaultGoPluginApiResponse(200, "{\"status\": \"success\"}");
       default:
